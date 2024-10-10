@@ -1,4 +1,6 @@
-
+'''
+    #Aplication Deploymment
+'''
 from flask import Flask, request, render_template
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -6,6 +8,9 @@ app = Flask(__name__)
 
 @app.route("/emotionDetector")
 def send_emotion():
+    '''
+    #Send output
+    '''
     text_to_analyze = request.args.get("textToAnalyze")
 
     response = emotion_detector(text_to_analyze)
@@ -20,11 +25,15 @@ def send_emotion():
     for key, value in emotions.items():
         emotion += f"'{key}': {value}, "
     emotion = emotion[:-2]
-    result = f"For the given statement, the system response is {emotion}. The dominant emotion is {dominant_emotion}"
+    result = (f"For the given statement, the system response is {emotion}. "
+    f"The dominant emotion is {dominant_emotion}")
     return result
 
 @app.route("/")
 def index():
+    '''
+    #Render
+    '''
     return render_template("index.html")
 
 if __name__ == "__main__":
